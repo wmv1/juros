@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  # Serviço para a aplicação Rails
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: juros:latest
+    container_name: juros
+    command: ./bin/thrust ./bin/rails server -b '0.0.0.0'
+    environment:
+      RAILS_ENV: development
+      DATABASE_URL: postgres://rails:password@db:5432/rails_production
+    volumes:
+      - .:/rails
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+
+  # Serviço para o banco de dados PostgreSQL
+  db:
+    image: postgres:13
+    container_name: postgres
+    environment:
+      POSTGRES_USER: rails
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: rails_production
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+volumes:
+  db_data:
