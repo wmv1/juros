@@ -1,0 +1,61 @@
+<% content_for :title, "Editing customer" %>
+
+<h1>Editing customer</h1>
+
+<%= render "form", customer: @customer %>
+
+<div class="customer-actions">
+  <%= link_to "Ver", @customer, class: "btn btn-dark" %>
+  <%= link_to "Voltar", customers_path, class: "btn btn-light" %>
+</div>
+
+<style>
+  /* Estilização dos botões dentro do bloco de ações */
+  .customer-actions {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+  }
+
+  .btn {
+    padding: 8px 16px;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: none;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .btn-dark {
+    background-color: #333;
+    color: white;
+  }
+
+  .btn-dark:hover {
+    background-color: #555;
+  }
+
+  .btn-light {
+    background-color: #f8f9fa;
+    color: #333;
+    border: 1px solid #ccc;
+  }
+
+  .btn-light:hover {
+    background-color: #e2e6ea;
+  }
+
+  /* Responsividade */
+  @media (max-width: 768px) {
+    .customer-actions {
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .btn {
+      width: 100%;
+      text-align: center;
+    }
+  }
+</style>

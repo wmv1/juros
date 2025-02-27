@@ -1,0 +1,111 @@
+<%= form_with(model: contract, class: "contract-form") do |form| %>
+  <% if contract.errors.any? %>
+    <div class="alert alert-danger">
+      <h2><%= pluralize(contract.errors.count, "erro") %> impediram este contrato de ser salvo:</h2>
+      <ul>
+        <% contract.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.label "Número do Contrato", class: "form-label" %>
+    <%= form.text_field :number, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label "Nome do Contrato", class: "form-label" %>
+    <%= form.text_field :name, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label "ID do Cliente", class: "form-label" %>
+    <%= form.collection_select :customer_id, Customer.all, :id, :id, { prompt: "Selecione um cliente" }, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label "Data de Início", class: "form-label" %>
+    <%= form.date_field :start_date, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label "Data de Término", class: "form-label" %>
+    <%= form.date_field :end_date, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.submit "Salvar Contrato", class: "btn btn-custom submit-btn" %>
+  </div>
+<% end %>
+
+<style>
+  /* Estilização do formulário */
+  .contract-form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  .form-label {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 5px;
+    display: block;
+  }
+
+  .form-control {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f8f8f8;
+    transition: border-color 0.3s ease;
+  }
+
+  .form-control:focus {
+    border-color: #333;
+    background-color: #fff;
+  }
+
+  /* Botão de envio */
+  .submit-btn {
+    padding: 10px 20px;
+    font-size: 1.1rem;
+    border-radius: 5px;
+    background-color: #333;
+    color: white;
+    border: none;
+    transition: background-color 0.3s ease;
+  }
+
+  .submit-btn:hover {
+    background-color: #555;
+  }
+
+  /* Mensagens de erro */
+  .alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 20px;
+  }
+
+  .alert-danger ul {
+    list-style-type: none;
+    padding-left: 0;
+  }
+
+  .alert-danger li {
+    margin-bottom: 5px;
+  }
+</style>

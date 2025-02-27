@@ -1,0 +1,78 @@
+/* Aplica o efeito a todos os botões do Bootstrap */
+a.btn, button.btn, input[type="submit"].btn {
+  background-color: #333; /* Cor de fundo padrão */
+  color: white; /* Cor do texto */
+  font-size: 1rem;
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Suaviza a transição */
+  text-decoration: none; /* Remove o sublinhado de links */
+  display: inline-block; /* Garantir que o botão ocupe o formato de bloco */
+}
+
+a.btn:hover, button.btn:hover, input[type="submit"].btn:hover {
+  background-color: #555; /* Cor mais clara ao passar o mouse */
+  transform: translateY(-5px); /* Eleva o botão quando o mouse passa por cima */
+}
+
+a.btn:active, button.btn:active, input[type="submit"].btn:active {
+  background-color: #444; /* Cor ainda mais escura quando clicado */
+  transform: translateY(0); /* Remove o efeito de elevação */
+}
+
+/* Estilo da Paginação */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding: 15px 0;
+  margin-top: 20px;
+  list-style-type: none;
+}
+
+.pagination a,
+.pagination .next_page,
+.pagination .previous_page {
+  padding: 8px 15px;
+  background-color: #f4f4f4;
+  border-radius: 5px;
+  color: #007bff;
+  text-decoration: none;
+  font-size: 1rem;
+  display: inline-block;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.pagination a:hover,
+.pagination .next_page:hover,
+.pagination .previous_page:hover {
+  background-color: #007bff;
+  color: white;
+}
+
+.pagination .current {
+  background-color:rgb(61, 61, 61);
+  color: white;
+  padding: 8px 15px;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.pagination .disabled {
+  color: #ccc;
+  pointer-events: none;
+}
+
+.pagination .previous_page.disabled,
+.pagination .next_page.disabled {
+  background-color: #e0e0e0;
+  cursor: not-allowed;
+}
+
+/* Escondendo a Paginação quando não houver mais páginas */
+.pagination a[aria-label="Next page"]:disabled,
+.pagination a[aria-label="Previous page"]:disabled {
+  display: none;
+}

@@ -1,0 +1,49 @@
+<% content_for :title, "New invoice" %>
+
+<h1 class="page-title">New Invoice</h1>
+
+<%= render "form", invoice: @invoice %>
+
+<div class="btn-container">
+  <%= link_to "Back to invoices", invoices_path, class: "btn btn-link" %>
+</div>
+
+<style>
+  /* Estilo para o título da página */
+  .page-title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #333; /* Cor neutra escura para contraste */
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  /* Estilo do botão de link */
+  .btn-container {
+    text-align: center;
+    margin-top: 30px;
+  }
+
+  .btn-link {
+    color: #007bff;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-decoration: none;
+    border: none;
+    padding: 8px 16px;
+    background-color: transparent;
+    transition: color 0.3s ease, border-color 0.3s ease;
+  }
+
+  .btn-link:hover {
+    color: #0056b3;
+    text-decoration: underline;
+  }
+
+  /* Estilização do formulário */
+  .form-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+</style>

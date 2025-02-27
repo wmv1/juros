@@ -1,0 +1,107 @@
+<%= form_with(model: subscription) do |form| %>
+  <% if subscription.errors.any? %>
+    <div class="error-message">
+      <h2><%= pluralize(subscription.errors.count, "error") %> prohibited this subscription from being saved:</h2>
+      <ul>
+        <% subscription.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.label :amount %>
+    <%= form.text_field :amount %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :start_date %>
+    <%= form.date_field :start_date %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :status %>
+    <%= form.text_field :status %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :contract_id %>
+    <%= form.select :contract_id, 
+                    Contract.where(status: :active).pluck(:name, :id), 
+                    prompt: "Select a contract" %>
+  </div>
+
+  <div class="form-submit">
+    <%= form.submit "Save" %>
+    <%= link_to "Back", subscriptions_path, class: "btn btn-link" %>
+  </div>
+<% end %>
+
+<style>
+  /* Estilo de erro */
+  .error-message {
+    color: red;
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+  }
+
+  .error-message ul {
+    margin-top: 10px;
+    padding-left: 20px;
+  }
+
+  .error-message li {
+    list-style-type: disc;
+  }
+
+  /* Estilo para os campos de formulário */
+  .form-group {
+    margin-bottom: 15px;
+  }
+
+  .form-group label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  .form-group input,
+  .form-group select {
+    width: 100%;
+    padding: 8px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
+  .form-submit {
+    display: flex;
+    gap: 10px;
+  }
+
+  .form-submit input,
+  .form-submit a {
+    padding: 10px 20px;
+    font-size: 1rem;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  .form-submit input:hover,
+  .form-submit a:hover {
+    background-color: #555;
+  }
+
+  .form-submit a {
+    background-color: #007bff;
+  }
+
+  .form-submit a:hover {
+    background-color: #0056b3;
+  }
+</style>

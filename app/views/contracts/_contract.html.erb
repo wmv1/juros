@@ -1,0 +1,222 @@
+<!-- Botão Novo Contrato -->
+<div class="new-contract-action">
+  <%= link_to "Novo Contrato", new_contract_path, class: "btn btn-primary" %>
+</div>
+
+<!-- Tabela de Contratos -->
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Número</th>
+      <th>ID do Cliente</th>
+      <th>Data de Início</th>
+      <th>Data de Término</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><%= contract.number %></td>
+      <td><%= contract.customer_id %></td>
+      <td><%= contract.start_date.strftime("%d/%m/%Y") %></td>
+      <td><%= contract.end_date.strftime("%d/%m/%Y") %></td>
+      <td class="contract-actions">
+        <%= link_to "Ver", contract, class: "btn btn-light btn-sm" %>
+        <%= link_to "Editar", edit_contract_path(contract), class: "btn btn-dark btn-sm" %>
+        <%= button_to "Excluir", contract, method: :delete, class: "btn btn-danger btn-sm", data: { confirm: "Tem certeza que deseja excluir este contrato?" } %>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- Exibir assinaturas associadas -->
+<% if contract.subscriptions.any? && local_assigns[:full] %>
+  <h2 class="section-title">Assinaturas</h2>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>ID da Assinatura</th>
+        <th>Status</th>
+        <th>Data de Início</th>
+        <th>Data de Fim</th>
+        <th>Faturas</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% contract.subscriptions.each do |subscription| %>
+        <tr>
+          <td><%= subscription.id %></td>
+          <td><%= subscription.status&.capitalize %></td>
+          <td><%= subscription.start_date.strftime("%d/%m/%Y") %></td>
+          <td><%= contract.end_date.strftime("%d/%m/%Y") %></td>
+          <td>
+            <% if subscription.invoices.any? %>
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Valor</th>
+                    <th>Vencimento</th>
+                    <th>Status</th>
+                    <th>Ações</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% subscription.invoices.paginate(page: params[:page], per_page: 5).each do |invoice| %>
+                    <tr>
+                      <td><%= invoice.id %></td>
+                      <td><%= number_to_currency(invoice.amount, unit: "R$", separator: ",", delimiter: ".", format: "%u %n") %></td>
+                      <td><%= invoice.due_date.strftime("%d/%m/%Y") %></td>
+                      <td><%= invoice.paid? ? "Paga" : "Pendente" %></td>
+                      <td>
+                        <%= link_to "Ver", invoice_path(invoice), class: "btn btn-link btn-sm" %>
+                        <%= link_to "Editar", edit_invoice_path(invoice), class: "btn btn-link btn-sm" %>
+                        <%= link_to "Deletar", invoice_path(invoice), method: :delete, data: { confirm: "Tem certeza?" }, class: "btn btn-link btn-sm" %>
+                      </td>
+                    </tr>
+                  <% end %>
+                </tbody>
+              </table>
+              <!-- Paginação -->
+              <div class="pagination">
+                <%= will_paginate subscription.invoices.paginate(page: params[:page], per_page: 5) %>
+              </div>
+            <% else %>
+              <p class="empty-message">Nenhuma fatura encontrada para esta assinatura.</p>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p class="empty-message">Nenhuma assinatura encontrada.</p>
+<% end %>
+
+<!-- Estilos -->
+<style>
+  .new-contract-action {
+    margin-bottom: 20px;
+    text-align: right;
+  }
+
+  .new-contract-action .btn {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 5px;
+    text-decoration: none;
+  }
+
+  .new-contract-action .btn:hover {
+    background-color: #218838;
+  }
+
+  .section-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-top: 20px;
+    color: #333;
+  }
+
+  .section-subtitle {
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin-top: 15px;
+    color: #555;
+  }
+
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+
+  .table th, .table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+
+  .table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+  }
+
+  .empty-message {
+    text-align: center;
+    color: #777;
+    margin-top: 10px;
+  }
+
+  .contract-actions {
+    display: flex;
+    gap: 10px;
+  }
+
+  .btn {
+    padding: 5px 10px;
+    font-size: 0.9rem;
+    border-radius: 5px;
+    border: none;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .btn-light {
+    background-color: #f8f9fa;
+    color: #333;
+    border: 1px solid #ccc;
+  }
+
+  .btn-light:hover {
+    background-color: #e2e6ea;
+  }
+
+  .btn-dark {
+    background-color: #333;
+    color: white;
+  }
+
+  .btn-dark:hover {
+    background-color: #555;
+  }
+
+  .btn-danger {
+    background-color: #d9534f;
+    color: white;
+  }
+
+  .btn-danger:hover {
+    background-color: #c9302c;
+  }
+
+  .btn-link {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+  }
+
+  .btn-link:hover {
+    text-decoration: underline;
+  }
+
+  .pagination {
+    margin-top: 15px;
+    text-align: center;
+  }
+
+  @media (max-width: 768px) {
+    .contract-actions {
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .btn {
+      width: 100%;
+      text-align: center;
+    }
+  }
+</style>

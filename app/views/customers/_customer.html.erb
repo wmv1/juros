@@ -1,0 +1,69 @@
+<div id="<%= dom_id customer %>" class="customer-info">
+  <p>
+    <strong>Nome:</strong>
+    <%= customer.name %>
+  </p>
+
+  <p>
+    <strong>Email:</strong>
+    <%= customer.email %>
+  </p>
+
+  <p>
+    <strong>Telefone:</strong>
+    <%= customer.phone %>
+  </p>
+
+  <p>
+    <strong>Endereço:</strong>
+    <%= customer.address %>
+  </p>
+</div>
+
+<style>
+  /* Estilização do bloco de informações */
+  .customer-info {
+    background-color: #f4f4f4; /* Fundo levemente contrastante */
+    padding: 20px;
+    border-radius: 8px; /* Bordas arredondadas para um toque moderno */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra sutil para profundidade */
+    margin-bottom: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  /* Efeito de hover para o bloco */
+  .customer-info:hover {
+    transform: translateY(-3px); /* Leve elevação ao passar o mouse */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Aprofundamento da sombra */
+  }
+
+  /* Estilo para os parágrafos */
+  .customer-info p {
+    font-size: 1.1rem;
+    line-height: 1.5;
+    color: #333; /* Cor escura para melhor leitura */
+    margin-bottom: 10px;
+  }
+
+  /* Estilo para os rótulos */
+  .customer-info strong {
+    color: #444; /* Cinza escuro para títulos */
+    font-weight: 600;
+  }
+
+  /* Ajuste no espaçamento do último item */
+  .customer-info p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Responsividade para dispositivos menores */
+  @media (max-width: 768px) {
+    .customer-info {
+      padding: 15px;
+    }
+
+    .customer-info p {
+      font-size: 1rem;
+    }
+  }
+</style>

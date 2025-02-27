@@ -1,0 +1,78 @@
+<div id="<%= dom_id invoice %>" class="invoice-info">
+  <p><strong>Valor:</strong> <%= number_to_currency(invoice.amount, unit: "R$", separator: ",", delimiter: ".", format: "%u %n") %></p>
+  <p><strong>Vencimento:</strong> <%= invoice.due_date.strftime("%d/%m/%Y") %></p>
+  <p><strong>Status:</strong> <span class="status <%= invoice.paid? ? 'paid' : 'pending' %>">
+    <%= invoice.paid? ? "Paga" : "Pendente" %>
+  </span></p>
+  <p><strong>Assinatura:</strong> #<%= invoice.subscription_id %></p>
+  <p><strong>Parcela:</strong> <%= invoice.current_installment %> de <%= invoice.installment_count %></p>
+
+  <div class="invoice-actions">
+    <% unless invoice.paid? %>
+      <%= button_to "Pagar", pay_invoice_path(invoice), method: :post, class: "btn btn-pay", data: { confirm: "Deseja confirmar o pagamento?" } %>
+    <% end %>
+  </div>
+</div>
+
+<style>
+  /* Estilo do bloco da fatura */
+  .invoice-info {
+    background-color: #ffffff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 15px;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  }
+
+  .invoice-info:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+  }
+
+  .invoice-info p {
+    font-size: 1rem;
+    color: #333;
+    margin-bottom: 8px;
+  }
+
+  .invoice-info strong {
+    font-weight: 600;
+    color: #444;
+  }
+
+  /* Status da fatura */
+  .status {
+    font-weight: bold;
+    padding: 3px 8px;
+    border-radius: 4px;
+  }
+
+  .status.paid {
+    color: #fff;
+    background-color: #28a745;
+  }
+
+  .status.pending {
+    color: #fff;
+    background-color: #dc3545;
+  }
+
+  /* Botão de pagamento */
+  .btn-pay {
+    display: inline-block;
+    padding: 8px 12px;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+  }
+
+  .btn-pay:hover {
+    background-color: #0056b3;
+  }
+</style>

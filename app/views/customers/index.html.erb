@@ -1,0 +1,113 @@
+<% if notice %>
+  <p class="notice-message"><%= notice %></p>
+<% end %>
+<% content_for :title, "Clientes" %>
+
+<h1 class="page-title">Clientes</h1>
+
+<div id="customers" class="customers-list">
+  <% @customers.each do |customer| %>
+    <div class="customer-card">
+      <%= render customer %>
+      <p>
+        <%= link_to "Ver", customer, class: "btn-custom" %>  <!-- Aqui, alterei para btn-custom -->
+      </p>
+    </div>
+  <% end %>
+</div>
+
+<div class="new-customer-link">
+  <%= link_to "Novo cliente", new_customer_path, class: "btn-custom" %>
+</div>
+
+<style>
+  /* Mobile-first styles */
+  body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4; /* Fundo claro e neutro */
+    color: #333; /* Cor de texto escuro para bom contraste */
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Estilo do aviso de mensagem */
+  .notice-message {
+    color: #28a745; /* Verde sutil para mensagem de sucesso */
+    font-size: 1rem;
+    text-align: center;
+    padding: 10px;
+    background-color: #d4edda; /* Fundo claro e suave */
+    border-radius: 5px;
+    margin: 15px 0;
+  }
+
+  /* Estilo do título */
+  .page-title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #333; /* Cor neutra escura para contraste */
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  /* Estilos da lista de clientes */
+  .customers-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 20px;
+  }
+
+  .customer-card {
+    background-color: #fff; /* Fundo branco para cada cartão */
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .customer-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  }
+
+  .customer-card p {
+    text-align: center;
+  }
+
+  /* Link para visualizar o cliente */
+  .btn-custom {
+    background-color: #333 !important; /* Cor escura para o botão */
+    color: white !important;
+    font-size: 1rem;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    transition: background-color 0.3s ease;
+    text-decoration: none; /* Remover sublinhado do link */
+    display: inline-block; /* Garantir o formato de botão */
+  }
+
+  .btn-custom:hover {
+    background-color: #555 !important; /* Cor mais clara no hover */
+  }
+
+  /* Estilos para dispositivos maiores que 768px (Tablet e Desktop) */
+  @media (min-width: 768px) {
+    .customers-list {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .customers-list {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  /* Certifique-se de que o link "Novo cliente" esteja centralizado */
+  .new-customer-link {
+    text-align: center; /* Centraliza o link */
+    margin-top: 30px;
+  }
+</style>

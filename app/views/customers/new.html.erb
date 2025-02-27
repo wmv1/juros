@@ -1,0 +1,51 @@
+<% content_for :title, "Novo cliente" %>
+
+<!-- Título da página -->
+<h1 class="page-title">Novo cliente</h1>
+
+<%= render "form", customer: @customer %>
+
+<br>
+
+<!-- Link de navegação -->
+<div class="back-link">
+  <%= link_to "Back to customers", customers_path, class: "btn btn-link" %>
+</div>
+
+<style>
+  /* Estilo para o título da página */
+  .page-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #333; /* Cor escura para o título */
+    margin-bottom: 30px;
+    text-align: center; /* Centralizar o título */
+  }
+
+  /* Estilo para o link de voltar */
+  .back-link {
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  .back-link .btn-link {
+    font-size: 1.1rem;
+    color: #007bff;
+    text-decoration: none;
+    border: none;
+    background: none;
+    transition: color 0.3s ease;
+  }
+
+  .back-link .btn-link:hover {
+    color: #0056b3; /* Cor do link mais escura no hover */
+    text-decoration: underline;
+  }
+
+  /* Estilos gerais para a página */
+  .container {
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+</style>

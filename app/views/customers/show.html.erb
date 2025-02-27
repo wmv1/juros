@@ -1,0 +1,182 @@
+<% if notice %>
+  <p class="notice-message"><%= notice %></p>
+<% end %>
+
+<!-- Cartão do Cliente -->
+<div class="customer-card">
+  <%= render @customer %>
+</div>
+
+<!-- Ações -->
+<div class="actions">
+  <%= link_to "Editar Cliente", edit_customer_path(@customer), class: "btn btn-custom" %>
+  <%= link_to "Voltar para Clientes", customers_path, class: "btn btn-secondary" %>
+  <%= button_to "Excluir Cliente", @customer, method: :delete, data: { confirm: "Tem certeza?" }, class: "btn btn-danger" %>
+</div>
+
+<!-- Bloco de Assinaturas -->
+<div class="subscriptions-block">
+  <h2 class="section-title">Assinaturas do Cliente</h2>
+
+  <% if @customer.subscriptions.any? %>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Status</th>
+          <th>Data de Início</th>
+          <th>Data de Fim</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @customer.subscriptions.paginate(page: params[:page], per_page: 5).each do |subscription| %>
+          <tr>
+            <td><%= subscription.id %></td>
+            <td><%= subscription.status&.capitalize %></td>
+            <td><%= subscription.start_date.strftime("%d/%m/%Y") %></td>
+            <td><%= subscription.contract.end_date.strftime("%d/%m/%Y") %></td>
+            <td>
+              <%= link_to "Ver Faturas", subscription_invoices_path(subscription), class: "btn btn-link" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <!-- Paginação -->
+   <div class="pagination">
+  <%= will_paginate @subscriptions %>
+</div>
+
+  <% else %>
+    <p class="empty-message">Nenhuma assinatura encontrada para este cliente.</p>
+  <% end %>
+</div>
+
+<style>
+  /* Estilo para mensagens de notificação */
+  .notice-message {
+    color: #155724;
+    background-color: #d4edda;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: bold;
+  }
+
+  /* Cartão do cliente */
+  .customer-card {
+    background: #f4f4f4;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+  }
+
+  /* Ações */
+  .actions {
+    display: flex;
+    gap: 10px;
+  }
+
+  .btn {
+    padding: 10px 15px;
+    font-size: 1rem;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+  }
+
+  .btn-custom {
+    background: #333;
+    color: white;
+    border: none;
+  }
+
+  .btn-custom:hover {
+    background: #555;
+  }
+
+  .btn-secondary {
+    background: #666;
+    color: white;
+  }
+
+  .btn-secondary:hover {
+    background: #888;
+  }
+
+  .btn-danger {
+    background: #a94442;
+    color: white;
+    border: none;
+  }
+
+  .btn-danger:hover {
+    background: #922b21;
+  }
+
+  /* Estilo para a seção de assinaturas */
+  .subscriptions-block {
+    margin-top: 30px;
+  }
+
+  .section-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+  }
+
+  .empty-message {
+    text-align: center;
+    color: #777;
+    margin-top: 10px;
+  }
+
+  .btn-link {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+  }
+
+  .btn-link:hover {
+    text-decoration: underline;
+  }
+
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+
+  .table th, .table td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #ddd;
+  }
+
+  .table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+  }
+
+  .pagination {
+    margin-top: 15px;
+    text-align: center;
+  }
+
+  @media (max-width: 768px) {
+    .actions {
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .btn {
+      width: 100%;
+      text-align: center;
+    }
+  }
+</style>

@@ -1,0 +1,16 @@
+<% if notice %>
+  <p class="notice-message"><%= notice %></p>
+<% end %>
+
+<% content_for :title, "Contratos" %>
+
+<h1>Contratos</h1>
+
+<div id="contracts">
+  <% @contracts.each do |contract| %>
+    <%= render contract %>
+   
+  <% end %>
+</div>
+
+<%= link_to "Novo contrato", new_contract_path, class: "btn btn-secondary" %>

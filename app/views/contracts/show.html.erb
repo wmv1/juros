@@ -1,0 +1,9 @@
+<%if notice %>
+  <p class="notice-message"><%= notice %></p>
+<%end%>
+<%= render @contract,  full: true %>
+
+<div>
+  <%= link_to "Voltar", contracts_path, class: "btn btn-secondary" %>
+
+</div>
