@@ -1,4 +1,4 @@
-<h2>Log in</h2>
+<h2>Entrar</h2>
 
 <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: 'devise-form-container', data: { turbo: false } }) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
@@ -21,7 +21,7 @@
   <% end %>
 
   <div class="actions">
-    <%= f.submit "Log in", class: 'btn btn-primary w-100' %> <!-- Usei w-100 para garantir que o botão ocupe toda a largura possível -->
+    <%= f.submit "Entrar", class: 'btn btn-primary w-100' %> <!-- Usei w-100 para garantir que o botão ocupe toda a largura possível -->
   </div>
 <% end %>
 
