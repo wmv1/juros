@@ -1,4 +1,6 @@
 class InvoicesController < ApplicationController
+  layout 'application_admin'
+
   before_action :set_invoice, only: %i[ show edit update destroy ]
   before_action :set_subscription
 

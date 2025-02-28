@@ -4,6 +4,7 @@ source "https://rubygems.org"
 gem "rails", "~> 8.0.1"
 gem 'will_paginate'
 gem 'pg'
+gem 'devise'
 
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
 gem "propshaft"

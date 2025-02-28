@@ -1,0 +1,121 @@
+/* app/assets/stylesheets/devise.css */
+
+.devise-form-container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 30px;
+}
+
+.devise-form-container h2 {
+  text-align: center;
+  color: #333;
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+
+.devise-form-container .field {
+  margin-bottom: 15px;
+}
+
+.devise-form-container label {
+  font-weight: bold;
+  color: #555;
+}
+
+.devise-form-container input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+  background-color: #f9f9f9;
+}
+
+.devise-form-container input:focus {
+  border-color: #333;
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.devise-form-container .actions {
+  text-align: center;
+}
+
+.devise-form-container .actions input {
+  background-color: #333;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.devise-form-container .actions input:hover {
+  background-color: #555;
+}
+
+/* Estilo dos links (como botões) */
+.devise-form-container .links {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.devise-form-container .links a,
+.devise-form-container .links button {
+  display: inline-block;
+  background-color: #333;
+  color: #fff;
+  padding: 10px 20px;
+  font-size: 1rem;
+  text-decoration: none;
+  border-radius: 5px;
+  margin-top: 10px;
+  margin-bottom: 10px;  /* Espaçamento entre os botões */
+  transition: background-color 0.3s ease;
+}
+
+.devise-form-container .links a:hover,
+.devise-form-container .links button:hover {
+  background-color: #555;
+  color: #fff; /* Garantir que o texto permaneça branco no hover */
+}
+
+/* Estilo de mensagens de erro */
+.devise-form-container .error-messages {
+  color: #dc3545;
+  margin-bottom: 20px;
+}
+
+
+/* Ajuste do formulário para largura e centralização */
+.devise-form-container {
+  width: 100%;
+  max-width: 400px; /* Largura máxima do formulário */
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+}
+
+.links {
+  width: 100%;
+  text-align: left; /* Alinha os links à esquerda */
+  margin-top: 10px;
+}
+
+.links a {
+  display: inline-block;
+  margin-top: 10px;
+  text-decoration: none;
+}
+
+.links a:hover {
+  text-decoration: underline;
+}

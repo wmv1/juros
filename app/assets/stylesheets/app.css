@@ -17,7 +17,7 @@ a.btn:hover, button.btn:hover, input[type="submit"].btn:hover {
 }
 
 a.btn:active, button.btn:active, input[type="submit"].btn:active {
-  background-color: #444; /* Cor ainda mais escura quando clicado */
+  background-color: #444; /* Cor mais escura quando clicado */
   transform: translateY(0); /* Remove o efeito de elevação */
 }
 
@@ -53,7 +53,7 @@ a.btn:active, button.btn:active, input[type="submit"].btn:active {
 }
 
 .pagination .current {
-  background-color:rgb(61, 61, 61);
+  background-color: rgb(61, 61, 61);
   color: white;
   padding: 8px 15px;
   border-radius: 5px;
@@ -75,4 +75,136 @@ a.btn:active, button.btn:active, input[type="submit"].btn:active {
 .pagination a[aria-label="Next page"]:disabled,
 .pagination a[aria-label="Previous page"]:disabled {
   display: none;
+}
+
+/* Fonte e tipografia */
+ /* Mobile-first styles */
+ body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f7f7f7;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+/* Títulos e subtítulos */
+h1, h2, h3 {
+  color: #343a40;  /* Texto escuro, mas não agressivo */
+  font-weight: 600; /* Títulos com mais peso para chamar atenção */
+}
+
+table td {
+  color: #6c757d;
+}
+
+/* Estilo de links */
+a {
+  color: #007bff; /* Cor de links no padrão do Bootstrap */
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: #0056b3; /* Cor mais escura no hover */
+}
+
+/* Estilo de botões (incluindo ícones) */
+.btn-action {
+  color: #6c757d;  /* Cinza claro para o texto do botão */
+  background-color: transparent; /* Fundo transparente */
+  border: 1px solid #6c757d; /* Borda sutil */
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 5px; /* Borda arredondada */
+  transition: color 0.3s ease, background-color 0.3s ease, transform 0.3s ease;
+}
+
+.btn-action:hover {
+  color: #ffffff; /* Cor do texto fica branca no hover */
+  background-color: #6c757d; /* Cor de fundo suave no hover */
+  transform: scale(1.05); /* Suaviza o efeito de hover */
+}
+
+/* Cartões e áreas de conteúdo */
+.card {
+  background-color: #ffffff; /* Fundo branco para os cartões */
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  transition: box-shadow 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1); /* Aumenta a sombra no hover */
+}
+
+/* Estilo das tabelas */
+table {
+  width: 100%;
+  margin-top: 20px;
+  border-collapse: collapse; /* Une as bordas */
+}
+
+table th, table td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid #dee2e6; /* Bordas sutis nas células */
+}
+
+table th {
+  color: #495057;  /* Título das colunas com cor suave */
+  font-weight: 600; /* Negrito para os títulos das colunas */
+}
+
+table td {
+  color: #6c757d;  /* Texto das células em cinza claro */
+}
+
+/* Estilo para o aviso de mensagem */
+.notice-message {
+  background-color: #d4edda; /* Fundo verde suave */
+  color: #155724; /* Texto verde mais escuro */
+  font-size: 1rem;
+  padding: 10px;
+  border-radius: 5px;
+  margin: 20px 0;
+  text-align: center;
+}
+
+/* Links dentro da tabela (ações como Ver, Editar e Excluir) */
+.table-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.table-actions a {
+  font-size: 1.25rem;
+  color: #6c757d;
+  transition: color 0.3s ease;
+}
+
+.table-actions a:hover {
+  color: #007bff; /* Fica azul no hover */
+}
+
+/* Responsividade - Mobile first */
+@media (max-width: 768px) {
+  .table-actions {
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  table th, table td {
+    font-size: 0.875rem; /* Tamanho menor de fonte para telas pequenas */
+  }
+
+  .btn {
+    width: 100%; /* Botões ficam com largura de 100% em telas menores */
+    text-align: center;
+  }
+
+  .notice-message {
+    font-size: 0.9rem;
+    padding: 8px;
+  }
 }

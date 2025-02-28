@@ -42,29 +42,18 @@
       color: #dcdcdc;
     }
 
-    /* Botões minimalistas */
-    .btn-primary {
-      background-color: #5A5A5A;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 5px;
-    }
-    .btn-primary:hover {
-      background-color: #444;
-    }
-
-    /* Hero Section corrigido */
+    /* Hero Section */
     .hero-section {
-      background: #f5f5f5; /* Fundo cinza claro para melhor leitura */
+      background: #f5f5f5;
       text-align: center;
       padding: 100px 20px;
     }
     .hero-section h1 {
-      color: #333; /* Texto escuro para contraste */
+      color: #333;
       font-weight: bold;
     }
     .hero-section p {
-      color: #555; /* Cinza escuro para melhor leitura */
+      color: #555;
     }
 
     /* Seção de Benefícios */
@@ -90,28 +79,36 @@
 </head>
 <body>
 
-  <!-- Navbar fixa no topo -->
-  <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
-    <div class="container">
-      <a class="navbar-brand" href="/">Cobrar-me</a>
+ <!-- Navbar fixa no topo -->
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+  <div class="container">
+    <!-- Logo com ícone e nome -->
+    <a class="navbar-brand d-flex align-items-center" href="/">
+      <i class="fa-solid fa-credit-card me-2"></i> <!-- Ícone de cartão de crédito -->
+      Cobrar-me
+    </a>
 
-      <!-- Botão do menu no mobile -->
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+    <!-- Botão do menu no mobile -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto">
-          <li class="nav-item">
-            <a href="<%= 'login_path' %>" class="nav-link">Entrar</a>
-          </li>
-          <li class="nav-item">
-            <a href="<%= 'signup_path' %>" class="btn btn-light ms-3">Cadastro</a>
-          </li>
-        </ul>
-      </div>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a href="<%= new_user_session_path %>" class="nav-link" id="btnEntrar">
+            <i class="fa-solid fa-right-to-bracket me-2"></i> Entrar
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="<%= new_user_registration_path %>" class="nav-link" id="btnCadastro">
+            <i class="fa-solid fa-user-plus me-2"></i> Cadastro
+          </a>
+        </li>
+      </ul>
     </div>
-  </nav>
+  </div>
+</nav>
 
   <!-- Hero Section -->
   <header class="hero-section">
@@ -127,17 +124,17 @@
       <h2 class="mb-4">Por que escolher nossa plataforma?</h2>
       <div class="row">
         <div class="col-md-4">
-          <i class="fas fa-shield-alt fa-3x text-secondary"></i>
+          <i class="fa-solid fa-lock fa-3x text-secondary"></i>
           <h4 class="mt-3">Segurança</h4>
           <p>Protegemos seus dados com a mais alta tecnologia de criptografia.</p>
         </div>
         <div class="col-md-4">
-          <i class="fas fa-cogs fa-3x text-secondary"></i>
+          <i class="fa-solid fa-robot fa-3x text-secondary"></i>
           <h4 class="mt-3">Automação</h4>
           <p>Processos automatizados para reduzir erros e aumentar a eficiência.</p>
         </div>
         <div class="col-md-4">
-          <i class="fas fa-chart-line fa-3x text-secondary"></i>
+          <i class="fa-solid fa-chart-bar fa-3x text-secondary"></i>
           <h4 class="mt-3">Relatórios</h4>
           <p>Dashboard completo para acompanhar métricas e resultados.</p>
         </div>
@@ -145,6 +142,99 @@
     </div>
   </section>
 
+    <!-- Seção de Planos -->
+  <section class="pricing-section py-5">
+    <div class="highlight text-center py-5">
+      <h2 class="text-white fw-bold"> Assine agora e tenha acesso completo! 💳</h2>
+      <p class="text-light mb-4">Escolha um plano que se encaixe nas suas necessidades</p>
+
+      <div class="container">
+        <div class="row justify-content-center">
+          <!-- Plano Mensal -->
+          <div class="col-12 col-md-5 d-flex align-items-stretch mb-4">
+            <div class="card shadow-lg border-0 p-4 w-100">
+              <div class="card-body d-flex flex-column">
+                <i class="fa-solid fa-calendar-day fa-3x text-primary mb-3"></i>
+                <h3 class="card-title">Plano Mensal</h3>
+                <p class="card-text flex-grow-1">Pague mês a mês e tenha total flexibilidade.</p>
+                <h4 class="text-primary fw-bold">R$ 40/mês</h4>
+                <a href="#" class="btn btn-primary w-100 mt-3">Assinar Mensal</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Plano Anual -->
+          <div class="col-12 col-md-5 d-flex align-items-stretch mb-4">
+            <div class="card shadow-lg border-0 p-4 w-100">
+              <div class="card-body d-flex flex-column">
+                <i class="fa-solid fa-calendar-check fa-3x text-success mb-3"></i>
+                <h3 class="card-title">Plano Anual</h3>
+                <p class="card-text flex-grow-1">Economize 10% no primeiro ano com pagamento anual.</p>
+                <h4 class="text-success fw-bold">R$ 432/ano</h4>
+                <small class="text-muted">Equivalente a R$ 36/mês</small>
+                <a href="#" class="btn btn-success w-100 mt-3">Assinar Anual</a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+<!-- Seção de Perguntas Frequentes -->
+<div class="container mt-5 faq-section">
+  <h2 class="text-center mb-4">Perguntas Frequentes</h2>
+
+  <!-- Ajustando a largura dos itens FAQ -->
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-9 col-lg-9">
+
+      <div class="accordion" id="faqAccordion">
+        <!-- Accordion items -->
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#collapseOne">
+              <i class="fa-solid fa-calculator me-2"></i> Como funciona o cálculo de juros?
+            </button>
+          </h2>
+          <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+              O Cobrar-me permite calcular juros simples e compostos de maneira automatizada.
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#collapseTwo">
+              <i class="fa-solid fa-credit-card me-2"></i> Posso parcelar uma dívida?
+            </button>
+          </h2>
+          <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+              Sim! O Cobrar-me oferece parcelamento automático com taxa de juros configurável.
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#collapseThree">
+              <i class="fa-solid fa-file-invoice-dollar me-2"></i> O sistema gera boletos?
+            </button>
+          </h2>
+          <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+              Sim! Você pode gerar boletos bancários e acompanhar pagamentos em tempo real.
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
 
   <!-- Rodapé -->
   <footer class="footer">
@@ -153,5 +243,27 @@
     </div>
   </footer>
 
+  <script>
+    // Alteração do botão de cadastro e login no mobile
+    window.addEventListener('resize', function() {
+      var isMobile = window.innerWidth < 768; // Verifica se é um dispositivo móvel
+      var btnEntrar = document.getElementById('btnEntrar');
+      var btnCadastro = document.getElementById('btnCadastro');
+
+      if (isMobile) {
+        // Remover classes de botão e adicionar ícones
+        btnEntrar.innerHTML = '<i class="fa-solid fa-right-to-bracket me-2"></i> Entrar';
+        btnCadastro.innerHTML = '<i class="fa-solid fa-user-plus me-2"></i> Cadastro';
+        btnEntrar.classList.remove('btn', 'btn-light');
+        btnCadastro.classList.remove('btn', 'btn-light');
+      } else {
+        // Restaurar os botões com classes
+        btnEntrar.innerHTML = 'Entrar';
+        btnCadastro.innerHTML = 'Cadastro';
+        btnEntrar.classList.add('btn', 'btn-light');
+        btnCadastro.classList.add('btn', 'btn-light');
+      }
+    });
+  </script>
 </body>
 </html>

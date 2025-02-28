@@ -1,4 +1,6 @@
 class SubscriptionsController < ApplicationController
+  layout 'application_admin'
+
   before_action :set_subscription, only: %i[ show edit update destroy ]
 
   # GET /subscriptions or /subscriptions.json

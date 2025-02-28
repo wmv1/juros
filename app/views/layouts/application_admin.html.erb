@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <meta name="turbo-visit-control" content="reload">
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    
+    <title><%= content_for(:title) || "Juros" %></title>
+    
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    
+    <%= yield :head %>
+    
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/icon.png">
+    
+    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+    
+    <meta charset="UTF-8">
+
+    <style>
+      /* Sidebar Desktop */
+      @media (min-width: 768px) {
+        #sidebarMenu {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 240px;
+          height: 100vh;
+          background: #1a1a1a;
+          padding-top: 20px;
+          border-right: 1px solid #333;
+        }
+
+        #mainContent {
+          margin-left: 250px;
+        }
+
+        .nav-link {
+          color: #ddd;
+          font-size: 1rem;
+          padding: 12px 15px;
+          transition: all 0.3s;
+          display: flex;
+          align-items: center;
+        }
+
+        .nav-link i {
+          margin-right: 10px;
+        }
+
+        .nav-link:hover {
+          background: #333;
+          color: #fff;
+          border-radius: 5px;
+        }
+      }
+
+      /* Menu Offcanvas (Mobile) */
+      .offcanvas {
+        background: #1a1a1a;
+        color: #f4f4f4;
+      }
+
+      .offcanvas-title {
+        font-weight: 600;
+        font-size: 1.2rem;
+        color: #fff;
+      }
+
+      .menu-btn {
+        background: #333;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        font-size: 1.2rem;
+        border-radius: 5px;
+        transition: 0.3s;
+      }
+
+      .menu-btn:hover {
+        background: #444;
+      }
+
+      .btn-close-white {
+        filter: invert(1);
+      }
+
+      #mainContent {
+        color: #333;
+        background: #f4f4fa4;
+        padding: 20px;
+        border-radius: 5px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
+
+    <!-- Botão para abrir o menu no mobile -->
+    <button class="menu-btn d-md-none m-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMenuMobile">
+      ☰ Menu
+    </button>
+
+    <!-- Sidebar Offcanvas (mobile) -->
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="sidebarMenuMobile">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title">Menu</h5>
+        <button type="button" class="btn-close btn-close-white d-md-none" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+
+      <div class="offcanvas-body">
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a href="<%= customers_path %>" class="nav-link">
+              <i class="bi bi-people-fill"></i> Clientes
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="<%= subscriptions_path %>" class="nav-link">
+              <i class="bi bi-calendar-check-fill"></i> Assinaturas
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="<%= invoices_path %>" class="nav-link">
+              <i class="bi bi-receipt-cutoff"></i> Faturas
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="<%= contracts_path %>" class="nav-link">
+              <i class="bi bi-file-earmark-text-fill"></i> Contratos
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="<%= 'metrics_path' %>" class="nav-link">
+              <i class="bi bi-graph-up-arrow"></i> Métricas
+            </a>
+          </li>
+          <!-- Link de Logout -->
+        <li class="nav-item">
+  <%= link_to destroy_user_session_path, data: { "turbo-method": "delete", confirm: "Tem certeza que deseja sair?" }, class: "nav-link" do %>
+    <i class="bi bi-box-arrow-right"></i> Sair
+  <% end %>
+</li>
+
+        </ul>
+      </div>
+    </div>
+
+    <!-- Sidebar Desktop -->
+    <div id="sidebarMenu" class="d-none d-md-block">
+      <h5 class="offcanvas-title text-white">
+        <i class="bi bi-speedometer2"></i> Dashboard
+      </h5>
+      <ul class="nav flex-column">
+        <li class="nav-item">
+          <a href="<%= customers_path %>" class="nav-link">
+            <i class="bi bi-people-fill"></i> Clientes
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="<%= subscriptions_path %>" class="nav-link">
+            <i class="bi bi-calendar-check-fill"></i> Assinaturas
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="<%= invoices_path %>" class="nav-link">
+            <i class="bi bi-receipt-cutoff"></i> Faturas
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="<%= contracts_path %>" class="nav-link">
+            <i class="bi bi-file-earmark-text-fill"></i> Contratos
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="<%= 'metrics_path' %>" class="nav-link">
+            <i class="bi bi-graph-up-arrow"></i> Métricas
+          </a>
+        </li>
+        <!-- Link de Logout -->
+      <li class="nav-item">
+        <%= link_to destroy_user_session_path, method: :delete, class: 'nav-link' do %>
+          <i class="bi bi-box-arrow-right"></i> Sair
+        <% end %>
+      </li>
+
+      </ul>
+    </div>
+
+    <!-- Conteúdo principal -->
+    <div id="mainContent" class="container mt-4">
+      <h1>Gestão de cobrança</h1>
+      <p>Gerenciamento de contratos de assinaturas.</p>
+      <%= yield %>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

@@ -8,6 +8,9 @@ Bundler.require(*Rails.groups)
 
 module Juros
   class Application < Rails::Application
+    config.i18n.default_locale = :'pt-BR'
+    config.i18n.default_locale = 'pt-BR'
+    config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.yml')]
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 8.0
 

@@ -5,38 +5,58 @@
 
 <h1 class="page-title">Clientes</h1>
 
-<div id="customers" class="customers-list">
-  <% @customers.each do |customer| %>
-    <div class="customer-card">
-      <%= render customer %>
-      <p>
-        <%= link_to "Ver", customer, class: "btn-custom" %>  <!-- Aqui, alterei para btn-custom -->
-      </p>
-    </div>
-  <% end %>
+<div id="customers" class="customers-card">
+  <table class="customers-table">
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Email</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @customers.each do |customer| %>
+        <tr>
+          <td><%= customer.name %></td>
+          <td><%= customer.email %></td>
+          <td class="actions">
+          <%= link_to customer_path(customer), class: "btn-action view-action" do %>
+            <i class="bi bi-eye"></i> <!-- Ícone de visualização -->
+            <% end %>
+            <%= link_to edit_customer_path(customer), class: "btn-action edit-action" do %>
+              <i class="bi bi-pencil"></i> <!-- Ícone de edição -->
+            <% end %>
+            <%= link_to customer_path(customer), method: :delete, data: { confirm: 'Tem certeza que deseja excluir este cliente?' }, class: "btn-action delete-action" do %>
+              <i class="bi bi-trash"></i> <!-- Ícone de exclusão -->
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 </div>
 
 <div class="new-customer-link">
-  <%= link_to "Novo cliente", new_customer_path, class: "btn-custom" %>
+  <%= link_to "Novo cliente", new_customer_path, class: "btnbtn-secondary" %>
 </div>
 
 <style>
   /* Mobile-first styles */
   body {
     font-family: 'Arial', sans-serif;
-    background-color: #f4f4f4; /* Fundo claro e neutro */
-    color: #333; /* Cor de texto escuro para bom contraste */
+    background-color: #f7f7f7;
+    color: #333;
     margin: 0;
     padding: 0;
   }
 
   /* Estilo do aviso de mensagem */
   .notice-message {
-    color: #28a745; /* Verde sutil para mensagem de sucesso */
+    color: #007bff;
     font-size: 1rem;
     text-align: center;
     padding: 10px;
-    background-color: #d4edda; /* Fundo claro e suave */
+    background-color: #e9f3ff;
     border-radius: 5px;
     margin: 15px 0;
   }
@@ -45,69 +65,122 @@
   .page-title {
     font-size: 1.8rem;
     font-weight: bold;
-    color: #333; /* Cor neutra escura para contraste */
+    color: #333;
     text-align: center;
     margin-bottom: 20px;
   }
 
-  /* Estilos da lista de clientes */
-  .customers-list {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 20px;
+  /* Card da Tabela */
+  .customers-card {
+    background-color: #fff;
     padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    max-width: 100%;
+    overflow-x: auto;
   }
 
-  .customer-card {
-    background-color: #fff; /* Fundo branco para cada cartão */
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  /* Estilo da tabela */
+  .customers-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
   }
 
-  .customer-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  .customers-table th,
+  .customers-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
   }
 
-  .customer-card p {
+  .customers-table th {
+    background-color: #f1f1f1;
+    color: #333;
+    font-weight: normal;
+  }
+
+  .customers-table td {
+    background-color: #fff;
+  }
+
+  /* Estilo das ações na tabela */
+  .actions {
+    display: flex;
+    gap: 10px;
+  }
+
+  /* Estilo dos botões */
+  .btn-action {
+    font-size: 1rem;
+    padding: 8px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    display: inline-block;
     text-align: center;
+    color: #999; /* Texto em cinza claro */
+    border: 1px solid transparent;
+    transition: color 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
   }
 
-  /* Link para visualizar o cliente */
+  /* Ações */
+  .view-action:hover,
+  .edit-action:hover,
+  .delete-action:hover {
+    color: #333; /* Cor escura ao passar o mouse */
+    transform: scale(1.05);
+    border-color: #ccc; /* Borda sutil ao passar o mouse */
+  }
+
+  .view-action i {
+    margin-right: 5px;
+  }
+
+  .edit-action i {
+    margin-right: 5px;
+  }
+
+  .delete-action i {
+    margin-right: 5px;
+  }
+
+  /* Estilo para link "Novo cliente" */
   .btn-custom {
-    background-color: #333 !important; /* Cor escura para o botão */
-    color: white !important;
+    background-color: transparent;
+    color: #007bff;
     font-size: 1rem;
     padding: 10px 20px;
     border-radius: 5px;
-    border: none;
-    transition: background-color 0.3s ease;
-    text-decoration: none; /* Remover sublinhado do link */
-    display: inline-block; /* Garantir o formato de botão */
+    border: 1px solid #007bff;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 20px;
+    text-align: center;
   }
 
   .btn-custom:hover {
-    background-color: #555 !important; /* Cor mais clara no hover */
+    background-color: #007bff;
+    color: white;
   }
 
-  /* Estilos para dispositivos maiores que 768px (Tablet e Desktop) */
+  /* Mobile-first, responsividade */
   @media (min-width: 768px) {
-    .customers-list {
-      grid-template-columns: repeat(2, 1fr);
+    .customers-table {
+      font-size: 1.1rem;
     }
   }
 
   @media (min-width: 1024px) {
-    .customers-list {
-      grid-template-columns: repeat(3, 1fr);
+    .customers-table {
+      font-size: 1.2rem;
     }
   }
 
-  /* Certifique-se de que o link "Novo cliente" esteja centralizado */
-  .new-customer-link {
-    text-align: center; /* Centraliza o link */
-    margin-top: 30px;
+  /* Responsividade das ações na tabela */
+  @media (max-width: 768px) {
+    .actions {
+      flex-direction: column;
+      align-items: flex-start;
+    }
   }
 </style>

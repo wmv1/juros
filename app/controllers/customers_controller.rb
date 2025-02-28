@@ -1,4 +1,5 @@
 class CustomersController < ApplicationController
+  layout 'application_admin'
   before_action :set_customer, only: %i[ show edit update destroy ]
 
   # GET /customers or /customers.json

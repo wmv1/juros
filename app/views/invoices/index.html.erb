@@ -2,87 +2,98 @@
   <p class="notice-message"><%= notice %></p>
 <% end %>
 
-<% content_for :title, "Invoices" %>
+<% content_for :title, "Faturas" %>
+
+<h1 class="page-title">Faturas</h1>
 
 <!-- Dashboard de Resumo das Faturas -->
 <div class="dashboard-summary">
-  <div class="summary-card">
+  <div class="summary-card total-invoices">
+    <i class="bi bi-credit-card"></i> <!-- Ícone de Total de Faturas -->
     <h3>Total de Faturas</h3>
     <p><%= number_to_currency(@total_invoices_amount, unit: "R$", separator: ",", delimiter: ".", format: "%u %n") %></p>
   </div>
 
-  <div class="summary-card">
+  <div class="summary-card paid-invoices">
+    <i class="bi bi-check-circle"></i> <!-- Ícone de Faturas Pagas -->
     <h3>Faturas Pagas</h3>
     <p><%= number_to_currency(@paid_invoices_amount, unit: "R$", separator: ",", delimiter: ".", format: "%u %n") %></p>
   </div>
 
-  <div class="summary-card">
+  <div class="summary-card pending-invoices">
+    <i class="bi bi-clock"></i> <!-- Ícone de Faturas Pendentes -->
     <h3>Faturas a Receber</h3>
     <p><%= number_to_currency(@pending_invoices_amount, unit: "R$", separator: ",", delimiter: ".", format: "%u %n") %></p>
   </div>
 
-  <div class="summary-card">
+  <div class="summary-card overdue-invoices">
+    <i class="bi bi-x-circle"></i> <!-- Ícone de Faturas Vencidas -->
     <h3>Faturas Vencidas</h3>
     <p><%= number_to_currency(@overdue_invoices_amount, unit: "R$", separator: ",", delimiter: ".", format: "%u %n") %></p>
   </div>
 </div>
 
-<h1 class="page-title">Invoices</h1>
-
 <!-- Tabela de Faturas -->
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>#</th>
-      <th>Cliente</th>
-      <th>Paga?</th>
-      <th>Valor</th>
-      <th>Vencimento</th>
-      <th>Ações</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @invoices.each do |invoice| %>
+<div id="invoices" class="invoices-card">
+  <table class="invoices-table">
+    <thead>
       <tr>
-        <td><%= invoice.id %></td>
-        <td><%= invoice.subscription.contract.customer.name %></td> <!-- Mostrar o nome do cliente -->
-        <td>
-          <%= invoice.paid? ? "Sim" : "Não" %> <!-- Exibe 'Sim' ou 'Não' com base no status de pagamento -->
-        </td>
-        <td><%= number_to_currency(invoice.amount, unit: "R$", separator: ",", delimiter: ".", format: "%u %n") %></td>
-        <td><%= invoice.due_date.strftime("%d/%m/%Y") %></td> <!-- Formatar a data de vencimento -->
-        <td>
-          <%= link_to "Ver", invoice, class: "btn btn-link" %>
-          <%= link_to "Editar", edit_invoice_path(invoice), class: "btn btn-link" %>
-          <%= link_to "Excluir", invoice, method: :delete, data: { confirm: "Certeza?" }, class: "btn btn-link" %>
-        </td>
+        <th>#</th>
+        <th>Cliente</th>
+        <th>Paga?</th>
+        <th>Valor</th>
+        <th>Vencimento</th>
+        <th>Ações</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<!-- Paginação -->
-<div class="pagination">
-  <%= will_paginate @invoices %> <!-- Paginação com o gem will_paginate -->
+    </thead>
+    <tbody>
+      <% @invoices.each do |invoice| %>
+        <tr>
+          <td><%= invoice.id %></td>
+          <td><%= invoice.subscription.contract.customer.name %></td>
+          <td><%= invoice.paid? ? "Sim" : "Não" %></td>
+          <td><%= number_to_currency(invoice.amount, unit: "R$", separator: ",", delimiter: ".", format: "%u %n") %></td>
+          <td><%= invoice.due_date.strftime("%d/%m/%Y") %></td>
+          <td class="actions">
+            <%= link_to invoice_path(invoice), class: "btn-action view-action" do %>
+              <i class="bi bi-eye"></i> <!-- Ícone de visualização -->
+            <% end %>
+            <%= link_to edit_invoice_path(invoice), class: "btn-action edit-action" do %>
+              <i class="bi bi-pencil"></i> <!-- Ícone de edição -->
+            <% end %>
+            <%= link_to invoice, method: :delete, data: { confirm: 'Tem certeza que deseja excluir esta fatura?' }, class: "btn-action delete-action" do %>
+              <i class="bi bi-trash"></i> <!-- Ícone de exclusão -->
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 </div>
 
-<!-- Link para criar nova fatura -->
 <div class="new-invoice-link">
-  <%= link_to "New invoice", new_invoice_path, class: "btn btn-custom" %>
+  <%= link_to "Nova fatura", new_invoice_path, class: "btn-custom" %>
 </div>
 
-<!-- Estilos -->
 <style>
+  /* Estilo geral da página */
+  body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f7f7f7;
+    color: #333;
+    margin: 0;
+    padding: 0;
+  }
 
-  /* Estilo para a mensagem de sucesso */
+  /* Estilo do aviso de mensagem */
   .notice-message {
-    color: #28a745;
-    background-color: #d4edda;
+    color: #007bff;
     font-size: 1rem;
-    padding: 10px;
-    border-radius: 5px;
-    margin-bottom: 20px;
     text-align: center;
+    padding: 10px;
+    background-color: #e9f3ff;
+    border-radius: 5px;
+    margin: 15px 0;
   }
 
   /* Estilo do título */
@@ -94,93 +105,143 @@
     margin-bottom: 20px;
   }
 
-  /* Estilo do painel de resumo */
+  /* Estilo do dashboard */
   .dashboard-summary {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 20px;
-    padding: 20px;
     margin-bottom: 20px;
   }
 
+  /* Estilo dos cards */
   .summary-card {
     background-color: #fff;
     padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
     text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  /* Efeito de hover nos cards */
+  .summary-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+
+  /* Estilo dos ícones */
+  .summary-card i {
+    font-size: 2rem;
+    color: #007bff;
+    margin-bottom: 10px;
   }
 
   .summary-card h3 {
     font-size: 1.2rem;
-    color: #333;
+    font-weight: bold;
     margin-bottom: 10px;
   }
 
   .summary-card p {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #007bff;
+    font-size: 1.2rem;
+    color: #333;
   }
 
   /* Estilo da tabela de faturas */
-  .table {
+  .invoices-card {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    max-width: 100%;
+    overflow-x: auto;
+  }
+
+  /* Estilo da tabela */
+  .invoices-table {
     width: 100%;
-    margin-top: 20px;
+    border-collapse: collapse;
+    table-layout: fixed;
   }
 
-  /* Estilo das células da tabela */
-  .table th, .table td {
-    padding: 12px;
-    text-align: center;
+  .invoices-table th,
+  .invoices-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
   }
 
-  /* Estilo do link de mostrar a fatura */
-  .btn-link {
-    color: #007bff;
+  .invoices-table th {
+    background-color: #f1f1f1;
+    color: #333;
+    font-weight: normal;
+  }
+
+  .invoices-table td {
+    background-color: #fff;
+  }
+
+  /* Estilo das ações na tabela */
+  .actions {
+    display: flex;
+    gap: 10px;
+  }
+
+  /* Estilo dos botões */
+  .btn-action {
     font-size: 1rem;
-    font-weight: bold;
+    padding: 8px 15px;
+    border-radius: 5px;
     text-decoration: none;
-    transition: color 0.3s ease;
-  }
-
-  .btn-link:hover {
-    color: #0056b3;
-    text-decoration: underline;
-  }
-
-  /* Estilo do botão de novo */
-  .new-invoice-link {
+    display: inline-block;
     text-align: center;
-    margin-top: 30px;
+    color: #999;
+    border: 1px solid transparent;
+    transition: color 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
   }
 
+  /* Efeito de hover nas ações */
+  .view-action:hover,
+  .edit-action:hover,
+  .delete-action:hover {
+    color: #333;
+    transform: scale(1.05);
+    border-color: #ccc;
+  }
+
+  .view-action i,
+  .edit-action i,
+  .delete-action i {
+    margin-right: 5px;
+  }
+
+  /* Estilo do link "Nova fatura" */
   .btn-custom {
-    background-color: #333;
-    color: white;
+    background-color: transparent;
+    color: #007bff;
     font-size: 1rem;
     padding: 10px 20px;
     border-radius: 5px;
-    border: none;
+    border: 1px solid #007bff;
     text-decoration: none;
     display: inline-block;
-    transition: background-color 0.3s ease;
+    margin-top: 20px;
+    text-align: center;
   }
 
   .btn-custom:hover {
-    background-color: #555;
+    background-color: #007bff;
+    color: white;
   }
 
-  /* Estilos responsivos para telas maiores */
-  @media (min-width: 768px) {
-    .dashboard-summary {
-      grid-template-columns: repeat(2, 1fr);
+  /* Responsividade */
+  @media (max-width: 768px) {
+    .summary-card {
+      padding: 15px;
     }
-  }
 
-  @media (min-width: 1024px) {
-    .dashboard-summary {
-      grid-template-columns: repeat(4, 1fr);
+    .invoices-table {
+      font-size: 0.9rem;
     }
   }
 </style>

@@ -1,4 +1,6 @@
 class ContractsController < ApplicationController
+  layout 'application_admin'
+
   before_action :set_contract, only: %i[ show edit update destroy ]
 
   # GET /contracts or /contracts.json
