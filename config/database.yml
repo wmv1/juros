@@ -60,9 +60,9 @@ test:
 
 production:
   <<: *default
-  database: juros_production
-  username: juros_user
-  password: <%= ENV['DATABASE_PASSWORD'] %>
-  host: <%= ENV['DATABASE_HOST'] || 'localhost' %>
-  port: <%= ENV['DATABASE_PORT'] || 5432 %>
+  url: <%= ENV['DATABASE_URL'] %>
+
+  cable:
+    adapter: postgresql
+    url: <%= ENV['DATABASE_URL'] %>
 
