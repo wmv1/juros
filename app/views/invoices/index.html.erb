@@ -73,7 +73,7 @@
   <% if @invoices.any? %>
   <!-- Links de Paginação -->
   <div class="pagination-container">
-    <%= will_paginate @invoices %> <!-- Removido o renderer -->
+    <%= will_paginate @invoices, next_label: 'Próxima Página', previous_label: 'Página Anterior' %>
   </div>
   <% end %>
 
