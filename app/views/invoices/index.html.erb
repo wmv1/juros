@@ -70,6 +70,13 @@
     </tbody>
   </table>
 </div>
+<!-- Links de Paginação -->
+<div class="pagination-container">
+  <%= will_paginate @invoices, renderer: BootstrapPagination::Rails %>
+</div>
+<% else %>
+<p>Não há faturas para exibir.</p>
+<% end %>
 
 <div class="new-invoice-link">
   <%= link_to "Nova fatura", new_invoice_path, class: "btn btn-custom" %>
