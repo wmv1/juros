@@ -61,7 +61,7 @@
         <tr>
           <td><%= subscription.id %></td>
           <td><%= subscription.status&.capitalize %></td>
-          <td><%= subscription.start_date.strftime("%d/%m/%Y") %></td>
+          <td><%= subscription&.start_date&.strftime("%d/%m/%Y") %></td>
           <td><%= contract.end_date.strftime("%d/%m/%Y") %></td>
           <td>
             <% if subscription.invoices.any? %>

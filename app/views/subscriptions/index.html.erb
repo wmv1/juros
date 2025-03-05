@@ -25,7 +25,7 @@
       <% @subscriptions.each do |subscription| %>
         <tr>
           <td><%= subscription.id %></td>
-          <td><%= subscription.start_date.strftime("%d/%m/%Y") %></td>
+          <td><%= subscription&.start_date&.strftime("%d/%m/%Y") %></td>
           <td class="subscription-actions">
             <%= link_to subscription_path(subscription), class: "btn-action view-action" do %>
               <i class="bi bi-eye"></i> <!-- Ícone de visualização -->
