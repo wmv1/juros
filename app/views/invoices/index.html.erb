@@ -73,7 +73,7 @@
   <% if @invoices.any? %>
   <!-- Links de Paginação -->
   <div class="pagination-container">
-    <%= will_paginate @invoices, renderer: BootstrapPagination::Rails %>
+    <%= will_paginate @invoices %> <!-- Removido o renderer -->
   </div>
   <% end %>
 
