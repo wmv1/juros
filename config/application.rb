@@ -29,7 +29,7 @@ module Juros
 
     config.middleware.insert_before 0, Rack::Cors do
       allow do
-        origins 'example.com'  # Substitua com o domínio correto
+        origins 'https://codesandbox.io'  # Substitua com o domínio correto
         resource '*', headers: :any, methods: [:get, :post, :options]
       end
     end
