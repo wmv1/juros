@@ -3,7 +3,6 @@ source "https://rubygems.org"
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 8.0.1"
 gem 'will_paginate'
-gem "pg", "~> 1.1"
 gem 'devise'
 gem 'rack-cors'
 
