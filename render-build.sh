@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # exit on error
 set -o errexit
-
+bundle config unset frozen
 bundle install
 bundle exec rails assets:precompile
 bundle exec rails assets:clean
