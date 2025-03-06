@@ -4,7 +4,6 @@ set -o errexit
 bundle config unset frozen
 bundle config set frozen false
 bundle install
-bundle exec rails importmap:install
 bundle exec rails assets:precompile
 bundle exec rails assets:clean
 
